@@ -2,11 +2,11 @@ package ru.home.convertermoney;
 
 import java.util.Scanner;
 
-import static ru.home.convertermoney.Type.*;
+import static ru.home.convertermoney.TypeMoney.*;
 
 
 public class Settings {
-    public static final Integer MAX_LENGTH_TYPE = Type.values().length - 1;
+    public static final Integer MAX_LENGTH_TYPE = TypeMoney.values().length - 1;
 
     public static final Integer MAX_AMOUNT_CONVERSION = 10000;
 
@@ -34,8 +34,8 @@ public class Settings {
             4 - CNY""";
 
 
-    public Type[] getListTypeCurrencies() {
-        return new Type[]{RUB, EUR, USD, JPY, CNY};
+    public TypeMoney[] getListTypeCurrencies() {
+        return new TypeMoney[]{RUB, EUR, USD, JPY, CNY};
     }
 
 

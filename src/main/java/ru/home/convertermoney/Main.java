@@ -1,10 +1,9 @@
 package ru.home.convertermoney;
 
-import ru.home.convertermoney.view.Console;
+import ru.home.convertermoney.view.GraphicsFrame;
 
 public class Main {
     public static void main(String[] args) {
-        Console console = new Console();
-        console.start();
+        new GraphicsFrame();
     }
 }

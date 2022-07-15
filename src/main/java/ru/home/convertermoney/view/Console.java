@@ -1,7 +1,7 @@
 package ru.home.convertermoney.view;
 
 import ru.home.convertermoney.Settings;
-import ru.home.convertermoney.Type;
+import ru.home.convertermoney.TypeMoney;
 import ru.home.convertermoney.working.ProcessingConvert;
 
 import java.io.IOException;
@@ -43,7 +43,7 @@ public class Console {
                     continue;
                 }
 
-                return Type.getTypeByIndex(selectUserNumberTypeCurrency);
+                return TypeMoney.getTypeByIndex(selectUserNumberTypeCurrency);
 
             } catch (InputMismatchException exp) {
                 System.out.println(Settings.NUMBER_NOT_FOUND);

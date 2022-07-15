@@ -2,7 +2,7 @@ package ru.home.convertermoney;
 
 import java.util.Arrays;
 
-public enum Type {
+public enum TypeMoney {
     RUB,
     EUR,
     USD,
@@ -10,7 +10,7 @@ public enum Type {
     CNY;
 
     public static String getTypeByIndex(int number) {
-        return Arrays.stream(Type.values())
+        return Arrays.stream(TypeMoney.values())
                 .filter(element -> element.ordinal() == number)
                 .findFirst().get().toString();
 
