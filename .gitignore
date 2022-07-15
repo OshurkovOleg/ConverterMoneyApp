@@ -2,4 +2,7 @@
 .idea
 target/
 *.class
+*.log.idea
+target/
+*.class
 *.log
