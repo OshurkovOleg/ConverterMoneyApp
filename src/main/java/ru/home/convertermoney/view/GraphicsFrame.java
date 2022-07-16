@@ -58,22 +58,18 @@ public class GraphicsFrame extends JFrame implements ActionListener {
 
         if (e.getSource() == textField) {
 
-            while (true) {
                 try {
                     Settings.amountToConvert = new BigDecimal(textField.getText());
+
                     if (Settings.amountToConvert.compareTo(new BigDecimal(Settings.MIN_AMOUNT_CONVERSION)) < 0
                             || Settings.amountToConvert.compareTo(new BigDecimal(Settings.MAX_AMOUNT_CONVERSION)) > 0) {
                         JOptionPane.showMessageDialog(null, Settings.AMOUNT_RANGE_VIOLATED, "Error", JOptionPane.PLAIN_MESSAGE);
                         Settings.amountToConvert = null;
-                        break;
                     }
 
                 } catch (NullPointerException | NumberFormatException exp) {
                     JOptionPane.showMessageDialog(null, Settings.NUMBER_NOT_FOUND, "Error", JOptionPane.PLAIN_MESSAGE);
-                    break;
                 }
-            }
-
         }
 
 
