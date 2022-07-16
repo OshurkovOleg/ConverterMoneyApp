@@ -1,9 +1,11 @@
 package ru.home.convertermoney;
 
+import ru.home.convertermoney.view.Console;
 import ru.home.convertermoney.view.GraphicsFrame;
 
 public class Main {
     public static void main(String[] args) {
-        new GraphicsFrame();
+//        new GraphicsFrame();
+        System.out.println(TypeMoney.getListType());
     }
 }

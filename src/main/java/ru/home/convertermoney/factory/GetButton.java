@@ -1,4 +1,4 @@
-package ru.home.convertermoney.util;
+package ru.home.convertermoney.factory;
 
 import ru.home.convertermoney.TypeMoney;
 import javax.swing.*;

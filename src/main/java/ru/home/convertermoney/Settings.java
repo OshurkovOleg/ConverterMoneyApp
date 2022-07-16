@@ -2,16 +2,14 @@ package ru.home.convertermoney;
 
 import java.util.Scanner;
 
-import static ru.home.convertermoney.TypeMoney.*;
-
 
 public class Settings {
+    public static final Scanner scanner = new Scanner(System.in);
     public static final Integer MAX_LENGTH_TYPE = TypeMoney.values().length - 1;
 
     public static final Integer MAX_AMOUNT_CONVERSION = 10000;
 
     public static final Integer MIN_AMOUNT_CONVERSION = 1;
-    public static final Scanner scanner = new Scanner(System.in);
 
 
     public static final String USER_GREETING = "\nWelcome to currency converter\n";
@@ -24,19 +22,6 @@ public class Settings {
     public static final String API_KEY = "3N4M0w7iWDSanpNJHQTzbFmqhI2GIGRe";
     public static final String USER_AGENT = "Chrome/71.1.2222.33";
     public static final String REQUEST_FAILED = "\nRequest failed";
-
-
-    public static final String MENU = """ 
-            0 - RUB
-            1 - EUR
-            2 - USD
-            3 - JPY
-            4 - CNY""";
-
-
-    public TypeMoney[] getListTypeCurrencies() {
-        return new TypeMoney[]{RUB, EUR, USD, JPY, CNY};
-    }
 
 
 }

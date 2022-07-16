@@ -1,9 +1,8 @@
 package ru.home.convertermoney.view;
 
-import ru.home.convertermoney.TypeMoney;
-import ru.home.convertermoney.util.GetButton;
-import ru.home.convertermoney.util.GetComboBox;
-import ru.home.convertermoney.util.GetTextField;
+import ru.home.convertermoney.factory.GetButton;
+import ru.home.convertermoney.factory.GetComboBox;
+import ru.home.convertermoney.factory.GetTextField;
 
 import javax.swing.*;
 import java.awt.*;

@@ -17,7 +17,7 @@ public class Console {
     public void start() {
 
         System.out.println(Settings.USER_GREETING);
-        System.out.println(Settings.MENU);
+        System.out.println(TypeMoney.getListType());
 
         startCurrency = getResultUserChoiceCurrency(Settings.CHOOSE_TYPE_MONEYS);
         resultCurrency = getResultUserChoiceCurrency(Settings.CHOOSE_TYPE_MONEYS_RESULT);
