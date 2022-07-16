@@ -1,13 +1,18 @@
 package ru.home.convertermoney.view;
 
+import ru.home.convertermoney.Settings;
+import ru.home.convertermoney.TypeMoney;
 import ru.home.convertermoney.factory.GetButton;
 import ru.home.convertermoney.factory.GetComboBox;
 import ru.home.convertermoney.factory.GetTextField;
+import ru.home.convertermoney.working.ProcessingConvert;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.math.BigDecimal;
 
 
 public class GraphicsFrame extends JFrame implements ActionListener {
@@ -21,7 +26,7 @@ public class GraphicsFrame extends JFrame implements ActionListener {
         super("Money Converter");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new FlowLayout());
-        this.setBounds(300, 300, 300, 150);
+        this.setBounds(300, 300, 300, 80);
         this.setVisible(true);
 
 
@@ -40,25 +45,56 @@ public class GraphicsFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startValue) {
-            System.out.println(startValue.getSelectedItem());
+            if(startValue.getSelectedItem() != null){
+                Settings.startCurrency = startValue.getSelectedItem().toString();}
         }
 
         if (e.getSource() == resultValue) {
-            System.out.println(resultValue.getSelectedItem());
+            if(resultValue.getSelectedItem() != null) {
+                Settings.resultCurrency = resultValue.getSelectedItem().toString();
+            }
         }
+
 
         if (e.getSource() == textField) {
-            System.out.println(textField.getText());
+
+            while (true) {
+                try {
+                    Settings.amountToConvert = new BigDecimal(textField.getText());
+                    if (Settings.amountToConvert.compareTo(new BigDecimal(Settings.MIN_AMOUNT_CONVERSION)) < 0
+                            || Settings.amountToConvert.compareTo(new BigDecimal(Settings.MAX_AMOUNT_CONVERSION)) > 0) {
+                        JOptionPane.showMessageDialog(null, Settings.AMOUNT_RANGE_VIOLATED, "Error", JOptionPane.PLAIN_MESSAGE);
+                        Settings.amountToConvert = null;
+                        break;
+                    }
+
+                } catch (NullPointerException | NumberFormatException exp) {
+                    JOptionPane.showMessageDialog(null, Settings.NUMBER_NOT_FOUND, "Error", JOptionPane.PLAIN_MESSAGE);
+                    break;
+                }
+            }
+
         }
 
+
         if (e.getSource() == startButton) {
-            String str = "Finish";
-            System.out.println("button worked");
-            JOptionPane.showMessageDialog(null, str, "Result", JOptionPane.PLAIN_MESSAGE);
+
+            if (Settings.startCurrency == null
+                    || Settings.resultCurrency == null
+                    || Settings.amountToConvert == null) {
+                JOptionPane.showMessageDialog(null, Settings.DATA_NOT_ENOUGH, "Error", JOptionPane.PLAIN_MESSAGE);
+            } else {
+                try {
+                    ProcessingConvert.startConvert(Settings.startCurrency, Settings.resultCurrency, Settings.amountToConvert);
+                } catch (IOException exp) {
+                    System.out.println("Поймали исключение которое нужно обработать" + exp.getMessage());
+                }
+                JOptionPane.showMessageDialog(null, Settings.conversionResult, "Result", JOptionPane.PLAIN_MESSAGE);
+            }
+
         }
 
 
     }
-
-
 }
+

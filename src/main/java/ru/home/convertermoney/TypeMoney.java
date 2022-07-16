@@ -12,12 +12,12 @@ public enum TypeMoney {
     public static String getTypeByIndex(int number) {
         return Arrays.stream(TypeMoney.values())
                 .filter(element -> element.ordinal() == number)
-                .findFirst().get().toString();
+                .findFirst().get().toString(); // refactor
     }
 
     public static String getListType() {
 
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder(); // убить объект
 
         for (int i = 0; i < TypeMoney.values().length; i++) {
             stringBuilder

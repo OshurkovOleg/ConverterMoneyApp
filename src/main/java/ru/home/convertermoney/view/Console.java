@@ -10,24 +10,23 @@ import java.util.InputMismatchException;
 
 
 public class Console {
-    String startCurrency;
-    String resultCurrency;
-    BigDecimal amountToConvert;
 
     public void start() {
 
         System.out.println(Settings.USER_GREETING);
         System.out.println(TypeMoney.getListType());
 
-        startCurrency = getResultUserChoiceCurrency(Settings.CHOOSE_TYPE_MONEYS);
-        resultCurrency = getResultUserChoiceCurrency(Settings.CHOOSE_TYPE_MONEYS_RESULT);
-        amountToConvert = getAmountToConvert();
+        Settings.startCurrency = getResultUserChoiceCurrency(Settings.CHOOSE_TYPE_MONEYS);
+        Settings.resultCurrency = getResultUserChoiceCurrency(Settings.CHOOSE_TYPE_MONEYS_RESULT);
+        Settings.amountToConvert = getAmountToConvert();
 
         try {
-            ProcessingConvert.startConvert(startCurrency, resultCurrency, amountToConvert);
+            ProcessingConvert.startConvert(Settings.startCurrency, Settings.resultCurrency, Settings.amountToConvert);
         } catch (IOException exp) {
             System.out.println("Поймали исключение которое нужно обработать" + exp.getMessage());
         }
+
+        System.out.println(Settings.conversionResult);
     }
 
     private String getResultUserChoiceCurrency(String messageForUser) {

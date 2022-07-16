@@ -5,7 +5,7 @@ import ru.home.convertermoney.view.GraphicsFrame;
 
 public class Main {
     public static void main(String[] args) {
-//        new GraphicsFrame();
-        System.out.println(TypeMoney.getListType());
+        new GraphicsFrame();
+
     }
 }
