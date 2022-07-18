@@ -25,6 +25,10 @@ public class Settings {
     public static final String USER_AGENT = "Chrome/71.1.2222.33";
     public static final String REQUEST_FAILED = "\nRequest failed";
 
+    public static final String ERROR = "Error";
+
+    public static final String RESULT = "Result";
+
     // верно ли было вынести изменяемые переменные отдельно
     public static String startCurrency;
     public static String resultCurrency;

@@ -1,6 +1,5 @@
 package ru.home.convertermoney;
 
-import ru.home.convertermoney.view.Console;
 import ru.home.convertermoney.view.GraphicsFrame;
 
 public class Main {
