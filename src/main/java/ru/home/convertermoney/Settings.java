@@ -41,6 +41,8 @@ public class Settings {
     public static final String ERROR_CONNECT_SQL = "Error connecting to sql server";
     public static final String ERROR_INIT_DRIVER_DB = "Error initializing database driver";
     public static final String ERROR_CLOSE_CONNECT_DB = "Error when trying to close database connection";
+
+    public static final String SELECT_COLUMN_NAME = "select * from currency";
     public static String startCurrency;
     public static String resultCurrency;
     public static BigDecimal amountToConvert;
