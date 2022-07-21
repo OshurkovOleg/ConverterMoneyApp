@@ -1,10 +1,14 @@
 package ru.home.convertermoney;
 
-import ru.home.convertermoney.view.GraphicsFrame;
+import ru.home.convertermoney.connection.ConnectionDB;
+
+import java.sql.Connection;
 
 public class Main {
     public static void main(String[] args) {
-        new GraphicsFrame();
 
+        Connection connect = ConnectionDB.connect();
+
+        ConnectionDB.closeConnection(connect);
     }
 }

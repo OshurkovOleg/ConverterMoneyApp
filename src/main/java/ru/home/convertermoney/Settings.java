@@ -23,13 +23,24 @@ public class Settings {
 
     public static final String API_KEY = "3N4M0w7iWDSanpNJHQTzbFmqhI2GIGRe";
     public static final String USER_AGENT = "Chrome/71.1.2222.33";
+
+
+    public static final String SQL_SERVER = "jdbc:postgresql://localhost:5432/postgres";
+    public static final String SQL_USER = "postgres";
+    public static final String SQL_PASSWORD = "123";
+
+    public static final String POSTGRESQL_DRIVER = "org.postgresql.Driver";
     public static final String REQUEST_FAILED = "\nRequest failed";
 
     public static final String ERROR = "Error";
-
     public static final String RESULT = "Result";
 
-    // верно ли было вынести изменяемые переменные отдельно
+    public static final String SUCCESS_DB_CONNECTION = "Successful database connection";
+    public static final String DB_CONNECT_CLOSED_SUCCESS = "Database connection closed successfully";
+
+    public static final String ERROR_CONNECT_SQL = "Error connecting to sql server";
+    public static final String ERROR_INIT_DRIVER_DB = "Error initializing database driver";
+    public static final String ERROR_CLOSE_CONNECT_DB = "Error when trying to close database connection";
     public static String startCurrency;
     public static String resultCurrency;
     public static BigDecimal amountToConvert;
