@@ -4,6 +4,7 @@ package ru.home.convertermoney.connection;
 import ru.home.convertermoney.Settings;
 import ru.home.convertermoney.exceptions.ConverterException;
 
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -47,11 +48,14 @@ public class ConnectionDB {
     }
 
     private void installDriverSql() throws SQLException {
+
         try {
             Class<?> driverClass = Class.forName(Settings.POSTGRESQL_DRIVER);
-            Driver driverPostgresql = (java.sql.Driver) driverClass.newInstance(); // refactor required
+            Driver driverPostgresql = (java.sql.Driver) driverClass.getDeclaredConstructor().newInstance();
             DriverManager.registerDriver(driverPostgresql);
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
+
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException |
+                 NoSuchMethodException | InvocationTargetException e) {
             throw new ConverterException(Settings.ERROR_INIT_DRIVER_DB + " " + e.getMessage());
         }
     }
