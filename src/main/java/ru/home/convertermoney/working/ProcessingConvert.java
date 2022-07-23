@@ -30,10 +30,8 @@ public class ProcessingConvert {
 
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (InterruptedException exp) {
-            throw new ConverterException("Ошибка в момент отправки GET-запроса" + exp.getMessage());
-        } catch (IOException exp) {
-            throw new ConverterException("Ошибка IOException в классе ProcessingConverted" + exp.getMessage());
+        } catch (InterruptedException | IOException exp) {
+            throw new ConverterException(Settings.ERROR_SENDING_REQUEST + exp.getMessage());
         }
 
         if (response.statusCode() == HttpURLConnection.HTTP_OK) {

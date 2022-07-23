@@ -1,16 +1,7 @@
 package ru.home.convertermoney.view;
 
-import ru.home.convertermoney.Settings;
-import ru.home.convertermoney.TypeMoney;
-import ru.home.convertermoney.working.ProcessingConvert;
-
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.InputMismatchException;
-
-
 public class Console {
-
+/*
     public void start() {
 
         System.out.println(Settings.USER_GREETING);
@@ -31,8 +22,9 @@ public class Console {
 
     private String getResultUserChoiceCurrency(String messageForUser) {
 
-        System.out.print(messageForUser);
+        System.out.print(messageForUser);*/
 
+/*
         while (true) {
             try {
                 int selectUserNumberTypeCurrency = Settings.scanner.nextInt();
@@ -50,8 +42,9 @@ public class Console {
             }
         }
     }
+*/
 
-
+/*
     private BigDecimal getAmountToConvert() throws InputMismatchException {
 
         System.out.print(Settings.AMOUNT_OF_MONEY);
@@ -74,5 +67,6 @@ public class Console {
 
 
     }
+    */
 }
 

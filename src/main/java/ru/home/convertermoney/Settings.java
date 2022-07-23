@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class Settings {
     public static final Scanner scanner = new Scanner(System.in);
-    public static final Integer MAX_LENGTH_TYPE = TypeMoney.values().length - 1;
 
     public static final Integer MAX_AMOUNT_CONVERSION = 10000;
 
@@ -43,10 +42,14 @@ public class Settings {
     public static final String ERROR_CLOSE_CONNECT_DB = "Error when trying to close database connection";
 
     public static final String SELECT_COLUMN_NAME = "select * from currency";
+
+    public static final String ERROR_SENDING_REQUEST = "Error while sending GET request";
+
+    public static final String MONEY_CONVERTER = "Money Converter";
+
     public static String startCurrency;
     public static String resultCurrency;
     public static BigDecimal amountToConvert;
-
     public static String conversionResult;
 
 }

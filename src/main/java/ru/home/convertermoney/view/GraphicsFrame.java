@@ -1,7 +1,6 @@
 package ru.home.convertermoney.view;
 
 import ru.home.convertermoney.Settings;
-import ru.home.convertermoney.TypeMoney;
 import ru.home.convertermoney.connection.ConnectionDB;
 import ru.home.convertermoney.exceptions.ConverterException;
 import ru.home.convertermoney.working.ProcessingConvert;
@@ -22,15 +21,13 @@ import java.util.List;
 
 public class GraphicsFrame extends JFrame implements ActionListener {
 
-    //    TypeMoney.values()
-    JComboBox<String> startValue = new JComboBox<>(getArrayType());
-    JComboBox<String> resultValue = new JComboBox<>(getArrayType());
-    JTextField textField = new JTextField(5);
-    JButton startButton = new JButton("start");
-
+    final private JComboBox<String> startValue = new JComboBox<>(getArrayType());
+    final private JComboBox<String> resultValue = new JComboBox<>(getArrayType());
+    final private JTextField textField = new JTextField(5);
+    final private JButton startButton = new JButton("start");
 
     public GraphicsFrame() {
-        super("Money Converter");
+        super(Settings.MONEY_CONVERTER);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new FlowLayout());
         this.setBounds(300, 300, 300, 80);
@@ -53,7 +50,7 @@ public class GraphicsFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startValue) {
             if (resultValue.getSelectedItem() != null) {
-                Settings.startCurrency = startValue.getSelectedItem().toString();
+                Settings.startCurrency = startValue.getSelectedItem().toString(); //TODO почему idea обращает внимание
 
             }
         }
@@ -114,29 +111,24 @@ public class GraphicsFrame extends JFrame implements ActionListener {
                 || Settings.amountToConvert.compareTo(BigDecimal.valueOf(Settings.MAX_AMOUNT_CONVERSION)) > 0;
     }
 
-    private String[] getArrayType() {
+    private static String[] getArrayType() {
 
-        List<String> listType = new ArrayList<>();
-        Connection connect = null;
+        Connection connection = ConnectionDB.getInstance(); // подключение не должно быть закрыто до завершения программы
 
-        try {
-            connect = ConnectionDB.connect();
-            Statement statement = connect.createStatement();
-            ResultSet resultSet = statement.executeQuery(Settings.SELECT_COLUMN_NAME);
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(Settings.SELECT_COLUMN_NAME)) {
+
+            List<String> listType = new ArrayList<>();
 
             while (resultSet.next()) {
                 listType.add(resultSet.getString(2));
             }
 
-        } catch (SQLException e) {
-            throw new ConverterException(Settings.ERROR_CONNECT_SQL + e.getMessage());
-        } finally {
-            if(connect != null) {
-                ConnectionDB.closeConnection(connect);
-            }
-        }
+            return listType.toArray(n -> new String[listType.size()]);
 
-        return listType.toArray(n -> new String[listType.size()]);
+        } catch (SQLException e) {
+            throw new ConverterException(Settings.ERROR_CONNECT_SQL + e);
+        }
 
     }
 

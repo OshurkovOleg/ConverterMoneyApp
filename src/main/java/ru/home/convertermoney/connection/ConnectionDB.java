@@ -11,29 +11,42 @@ import java.sql.SQLException;
 
 public class ConnectionDB {
 
-    public static Connection connect() {
+    private static Connection instance;
 
-        Connection dataBaseConnection = null;
+    private ConnectionDB() {
+    }
+
+    public static Connection getInstance() { //TODO создает один раз подключение при создании объекта
+        if (instance == null) {
+            instance = new ConnectionDB().connect();
+        }
+
+        return instance;
+    }
+
+    private Connection connect() {
 
         try {
-
             installDriverSql();
 
-            dataBaseConnection = DriverManager.getConnection(Settings.SQL_SERVER, Settings.SQL_USER, Settings.SQL_PASSWORD);
+            Connection dataBaseConnection = DriverManager.getConnection(Settings.SQL_SERVER,
+                    Settings.SQL_USER,
+                    Settings.SQL_PASSWORD);
 
             if (dataBaseConnection.isValid(1)) {
                 System.out.println(Settings.SUCCESS_DB_CONNECTION);
-            }
 
+                return dataBaseConnection;
+            } else {
+                throw new ConverterException(Settings.ERROR_CONNECT_SQL);
+            }
         } catch (ConverterException | SQLException e) {
             System.err.println(Settings.ERROR_CONNECT_SQL + e.getMessage());
         }
-
-        return dataBaseConnection;
+        return null;
     }
 
-
-    private static void installDriverSql() throws SQLException {
+    private void installDriverSql() throws SQLException {
         try {
             Class<?> driverClass = Class.forName(Settings.POSTGRESQL_DRIVER);
             Driver driverPostgresql = (java.sql.Driver) driverClass.newInstance(); // refactor required
@@ -43,16 +56,4 @@ public class ConnectionDB {
         }
     }
 
-    public static void closeConnection(Connection connection) {
-        try {
-            connection.close();
-
-            if (!connection.isValid(1)) {
-                System.out.println(Settings.DB_CONNECT_CLOSED_SUCCESS);
-            }
-        } catch (SQLException e) {
-            throw new ConverterException(Settings.ERROR_CLOSE_CONNECT_DB);
-        }
-
-    }
 }
