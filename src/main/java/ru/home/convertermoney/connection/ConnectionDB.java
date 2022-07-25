@@ -17,9 +17,10 @@ public class ConnectionDB {
     private ConnectionDB() {
     }
 
-    public static Connection getInstance() { //TODO создает один раз подключение при создании объекта
+    public static Connection getInstance() {
         if (instance == null) {
             instance = new ConnectionDB().connect();
+            return instance;
         }
 
         return instance;

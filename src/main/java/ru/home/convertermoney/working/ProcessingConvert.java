@@ -34,6 +34,7 @@ public class ProcessingConvert {
             throw new ConverterException(Settings.ERROR_SENDING_REQUEST + exp.getMessage());
         }
 
+
         if (response.statusCode() == HttpURLConnection.HTTP_OK) {
             JSONObject jsonObject = new JSONObject(response.body());
             Settings.conversionResult = resultMoney + " = " + jsonObject.get("result");

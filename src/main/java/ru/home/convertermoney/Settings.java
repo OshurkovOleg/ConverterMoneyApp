@@ -1,5 +1,9 @@
 package ru.home.convertermoney;
 
+import ru.home.convertermoney.connection.MethodDB;
+import ru.home.convertermoney.view.FrameEdit;
+
+import javax.swing.*;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
@@ -35,21 +39,37 @@ public class Settings {
     public static final String RESULT = "Result";
 
     public static final String SUCCESS_DB_CONNECTION = "Successful database connection";
+
     public static final String DB_CONNECT_CLOSED_SUCCESS = "Database connection closed successfully";
 
+    public static final String ERROR_CLOSE_CONNECT_DB = "Error when trying to close database connection";
     public static final String ERROR_CONNECT_SQL = "Error connecting to sql server";
     public static final String ERROR_INIT_DRIVER_DB = "Error initializing database driver";
-    public static final String ERROR_CLOSE_CONNECT_DB = "Error when trying to close database connection";
 
-    public static final String SELECT_COLUMN_NAME = "select * from currency";
 
+    public static final String SELECT_ALL_TABLE_VALUES = "select * from currency";
+
+    public static final String INSERT_ONE_VALUE_IN_TABLE = "insert into currency (name) values (?)";
+
+    public static final String DELETE_VALUE_CURRENCY_FROM_TABLE = "delete from currency where name=?";
     public static final String ERROR_SENDING_REQUEST = "Error while sending GET request";
 
     public static final String MONEY_CONVERTER = "Money Converter";
 
-    public static String startCurrency;
-    public static String resultCurrency;
-    public static BigDecimal amountToConvert;
+    public static final String START = "start";
+    public static final String EDIT = "edit";
+    public static final String ADD = "add";
+    public static final String DELETE = "del";
+
+    public static final String CURRENCY_SUCCESSFULLY_ADDED_TO_LIST = "currency successfully added to the list";
+
+    public static final String CURRENCY_SUCCESSFULLY_REMOVED_FROM_LIST = "currency successfully removed from the list";
+    public static final String ERROR_ADDING_VALUE_TO_LIST_CURRENCY = "Error adding value to database";
+
+    public static final String PATH_TO_FILE_WITH_ALL_CURRENCY_TYPE = "src/main/resources/currency.txt";
+    public static final String UNABLE_TO_PARSE_FILE = "Unable to parse file";
+
     public static String conversionResult;
+
 
 }
