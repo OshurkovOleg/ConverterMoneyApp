@@ -31,13 +31,13 @@ public class ProcessingConvert {
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (InterruptedException | IOException exp) {
-            throw new ConverterException(Settings.ERROR_SENDING_REQUEST + exp.getMessage());
+            throw new ConverterException(Settings.ERROR_SENDING_REQUEST + exp);
         }
 
 
         if (response.statusCode() == HttpURLConnection.HTTP_OK) {
             JSONObject jsonObject = new JSONObject(response.body());
-            Settings.conversionResult = resultMoney + " = " + jsonObject.get("result");
+            Settings.conversionResult = resultMoney + " = " + jsonObject.get(Settings.DESIRED_VALUE);
 
         } else {
             System.out.println(Settings.REQUEST_FAILED);

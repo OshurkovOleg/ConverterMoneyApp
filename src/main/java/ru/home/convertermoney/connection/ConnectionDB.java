@@ -31,17 +31,10 @@ public class ConnectionDB {
         try {
             installDriverSql();
 
-            Connection dataBaseConnection = DriverManager.getConnection(Settings.SQL_SERVER,
+            return DriverManager.getConnection(Settings.SQL_SERVER,
                     Settings.SQL_USER,
                     Settings.SQL_PASSWORD);
 
-            if (dataBaseConnection.isValid(1)) {
-                System.out.println(Settings.SUCCESS_DB_CONNECTION);
-
-                return dataBaseConnection;
-            } else {
-                throw new ConverterException(Settings.ERROR_CONNECT_SQL);
-            }
         } catch (ConverterException | SQLException e) {
             System.err.println(Settings.ERROR_CONNECT_SQL + e.getMessage());
         }

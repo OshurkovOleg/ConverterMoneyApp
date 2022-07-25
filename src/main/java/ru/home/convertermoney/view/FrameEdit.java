@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 
 public class FrameEdit extends JFrame implements ActionListener {
 
-//    private static FrameEdit instance;
+    //    private static FrameEdit instance;
     private final JButton ADD_CURRENCY_IN_LIST = new JButton(Settings.ADD);
     private final JButton DELETE_CURRENCY_IN_LIST = new JButton(Settings.DELETE);
     private final JComboBox<String> LIST_ALL_CURRENCIES = new JComboBox<>(GetAllCurrencies.getAllCurrenciesFromFile());
@@ -67,5 +67,6 @@ public class FrameEdit extends JFrame implements ActionListener {
             UpdateBoxFrame.mainBoxs();
         }
     }
+
 
 }

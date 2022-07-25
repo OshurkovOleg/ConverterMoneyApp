@@ -60,6 +60,7 @@ public class Settings {
     public static final String EDIT = "edit";
     public static final String ADD = "add";
     public static final String DELETE = "del";
+    public static final String DESIRED_VALUE = "result";
 
     public static final String CURRENCY_SUCCESSFULLY_ADDED_TO_LIST = "currency successfully added to the list";
 

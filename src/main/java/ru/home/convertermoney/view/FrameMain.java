@@ -3,12 +3,14 @@ package ru.home.convertermoney.view;
 import ru.home.convertermoney.Settings;
 import ru.home.convertermoney.connection.ConnectionDB;
 import ru.home.convertermoney.connection.MethodDB;
+import ru.home.convertermoney.util.ListenerWindowsFrame;
 import ru.home.convertermoney.working.ProcessingConvert;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -18,7 +20,6 @@ public class FrameMain extends JFrame implements ActionListener {
 
     private static FrameMain instance;
 
-    private final Connection CONNECTION = ConnectionDB.getInstance();
     private final JButton BUTTON_START_CONVERSION_PROCESS = new JButton(Settings.START);
     private final JButton BUTTON_EDITING_LIST_CURRENCIES = new JButton(Settings.EDIT);
     private final JTextField TEXT_FIELD_VALUE = new JTextField(5);
@@ -28,7 +29,7 @@ public class FrameMain extends JFrame implements ActionListener {
     private static String startCurrency;
     private static String resultCurrency;
     private static BigDecimal amountToConvert;
-
+    WindowListener windowsListen = new ListenerWindowsFrame();
 
     private FrameMain() {
         super(Settings.MONEY_CONVERTER);
@@ -37,23 +38,27 @@ public class FrameMain extends JFrame implements ActionListener {
         this.setBounds(300, 300, 300, 120);
         this.setVisible(true);
 
+
         this.add(listIncomingCurrencyType);
         this.add(listExpectedCurrencyType);
         this.add(TEXT_FIELD_VALUE);
         this.add(BUTTON_START_CONVERSION_PROCESS);
         this.add(BUTTON_EDITING_LIST_CURRENCIES);
+        this.addWindowListener(windowsListen);
 
         listIncomingCurrencyType.addActionListener(this);
         listExpectedCurrencyType.addActionListener(this);
         TEXT_FIELD_VALUE.addActionListener(this);
         BUTTON_START_CONVERSION_PROCESS.addActionListener(this);
         BUTTON_EDITING_LIST_CURRENCIES.addActionListener(this);
+
     }
 
 
     public static FrameMain getInstance() {
         if (instance == null) {
             instance = new FrameMain();
+
             return instance;
         }
         return instance;
