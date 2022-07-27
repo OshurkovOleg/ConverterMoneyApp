@@ -2,37 +2,44 @@ package ru.home.convertermoney.view;
 
 import ru.home.convertermoney.Settings;
 import ru.home.convertermoney.connection.ConnectionDB;
-import ru.home.convertermoney.connection.MethodDB;
-import ru.home.convertermoney.util.ListenerWindowsFrame;
+import ru.home.convertermoney.repository.CurrenciesDB;
 import ru.home.convertermoney.working.ProcessingConvert;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Connection;
 
 
 public class FrameMain extends JFrame implements ActionListener {
+    protected static final String EDIT = "edit";
+    private static final String START = "start";
+    private static final String MONEY_CONVERTER = "Money Converter";
+    private static final String RESULT = "Result";
+    private static final String ERROR = "Error";
+    private static final String DATA_NOT_ENOUGH = ">>> not enough data to complete <<<\n";
+    private static final String NUMBER_NOT_FOUND = ">>> Invalid value, please try again <<<";
+    private static final String AMOUNT_RANGE_VIOLATED = ">>> The amount cannot be less than one or more than ten thousand, please try again <<<\n";
 
+    Connection startConnect = ConnectionDB.getInstance();
     private static FrameMain instance;
-
-    private final JButton BUTTON_START_CONVERSION_PROCESS = new JButton(Settings.START);
-    private final JButton BUTTON_EDITING_LIST_CURRENCIES = new JButton(Settings.EDIT);
+    private final JButton BUTTON_START_CONVERSION_PROCESS = new JButton(START);
+    private final JButton BUTTON_EDITING_LIST_CURRENCIES = new JButton(EDIT);
     private final JTextField TEXT_FIELD_VALUE = new JTextField(5);
-    protected JComboBox<String> listIncomingCurrencyType = new JComboBox<>(MethodDB.selectValueFromDataBase());
-    protected JComboBox<String> listExpectedCurrencyType = new JComboBox<>(MethodDB.selectValueFromDataBase());
+    protected JComboBox<String> listIncomingCurrencyType = new JComboBox<>(CurrenciesDB.selectValueFromDataBase());
+    protected JComboBox<String> listExpectedCurrencyType = new JComboBox<>(CurrenciesDB.selectValueFromDataBase());
 
     private static String startCurrency;
     private static String resultCurrency;
     private static BigDecimal amountToConvert;
-    WindowListener windowsListen = new ListenerWindowsFrame();
+
+    private static String conversionResult;
 
     private FrameMain() {
-        super(Settings.MONEY_CONVERTER);
+        super(MONEY_CONVERTER);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new FlowLayout());
         this.setBounds(300, 300, 300, 120);
@@ -44,7 +51,6 @@ public class FrameMain extends JFrame implements ActionListener {
         this.add(TEXT_FIELD_VALUE);
         this.add(BUTTON_START_CONVERSION_PROCESS);
         this.add(BUTTON_EDITING_LIST_CURRENCIES);
-        this.addWindowListener(windowsListen);
 
         listIncomingCurrencyType.addActionListener(this);
         listExpectedCurrencyType.addActionListener(this);
@@ -98,7 +104,7 @@ public class FrameMain extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == BUTTON_EDITING_LIST_CURRENCIES) {
-            new FrameEdit(); // TODO не работает корретно в виде синглтона
+            new FrameEdit();
         }
 
     }
@@ -108,25 +114,25 @@ public class FrameMain extends JFrame implements ActionListener {
             amountToConvert = BigDecimal.valueOf(Integer.parseInt(TEXT_FIELD_VALUE.getText()));
 
             if (isCorrectNumbers()) {
-                JOptionPane.showMessageDialog(null, Settings.AMOUNT_RANGE_VIOLATED, Settings.ERROR, JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null, AMOUNT_RANGE_VIOLATED, ERROR, JOptionPane.PLAIN_MESSAGE);
                 amountToConvert = null;
             }
 
         } catch (NullPointerException | NumberFormatException exp) {
-            JOptionPane.showMessageDialog(null, Settings.NUMBER_NOT_FOUND, Settings.ERROR, JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, NUMBER_NOT_FOUND, ERROR, JOptionPane.PLAIN_MESSAGE);
         }
     }
 
     private void startConverting() {
         if (isCompleteData()) {
-            JOptionPane.showMessageDialog(null, Settings.DATA_NOT_ENOUGH, Settings.ERROR, JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, DATA_NOT_ENOUGH, ERROR, JOptionPane.PLAIN_MESSAGE);
         } else {
             try {
-                ProcessingConvert.startConvert(startCurrency, resultCurrency, amountToConvert);
+                conversionResult = ProcessingConvert.startConvert(startCurrency, resultCurrency, amountToConvert);
             } catch (IOException exp) {
                 System.out.println("Поймали исключение которое нужно обработать" + exp.getMessage());
             }
-            JOptionPane.showMessageDialog(null, Settings.conversionResult, Settings.RESULT, JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, conversionResult, RESULT, JOptionPane.PLAIN_MESSAGE);
         }
     }
 

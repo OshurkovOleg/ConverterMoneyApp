@@ -11,7 +11,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionDB {
-
+    private static final String ERROR_INIT_DRIVER_DB = "Error initializing database driver";
+    private static final String ERROR_CONNECT_SQL = "Error connecting to sql server";
     private static Connection instance;
 
     private ConnectionDB() {
@@ -36,7 +37,7 @@ public class ConnectionDB {
                     Settings.SQL_PASSWORD);
 
         } catch (ConverterException | SQLException e) {
-            System.err.println(Settings.ERROR_CONNECT_SQL + e.getMessage());
+            System.err.println(ERROR_CONNECT_SQL + e);
         }
         return null;
     }
@@ -50,7 +51,7 @@ public class ConnectionDB {
 
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException |
                  NoSuchMethodException | InvocationTargetException e) {
-            throw new ConverterException(Settings.ERROR_INIT_DRIVER_DB + " " + e.getMessage());
+            throw new ConverterException(ERROR_INIT_DRIVER_DB + " " + e.getMessage());
         }
     }
 

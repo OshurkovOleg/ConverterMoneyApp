@@ -14,8 +14,10 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class ProcessingConvert {
+    private static final String ERROR_SENDING_REQUEST = "Error while sending GET request";
+    private static final String REQUEST_FAILED = "\nRequest failed";
 
-    public static void startConvert(String getMoney, String resultMoney, BigDecimal count) throws IOException {
+    public static String startConvert(String getMoney, String resultMoney, BigDecimal count) throws IOException {
 
         String apiUrl = String.format("https://api.apilayer.com/currency_data/convert?to=%s&from=%s&amount=%s", resultMoney, getMoney, count.toString());
 
@@ -31,16 +33,17 @@ public class ProcessingConvert {
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (InterruptedException | IOException exp) {
-            throw new ConverterException(Settings.ERROR_SENDING_REQUEST + exp);
+            throw new ConverterException(ERROR_SENDING_REQUEST + exp);
         }
 
 
         if (response.statusCode() == HttpURLConnection.HTTP_OK) {
             JSONObject jsonObject = new JSONObject(response.body());
-            Settings.conversionResult = resultMoney + " = " + jsonObject.get(Settings.DESIRED_VALUE);
+            return resultMoney + " = " + jsonObject.get(Settings.DESIRED_VALUE_FROM_API);
 
         } else {
-            System.out.println(Settings.REQUEST_FAILED);
+            System.out.println(REQUEST_FAILED);
         }
+        return null;
     }
 }

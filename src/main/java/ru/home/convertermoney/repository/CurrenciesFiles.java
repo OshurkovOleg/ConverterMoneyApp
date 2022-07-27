@@ -1,4 +1,4 @@
-package ru.home.convertermoney.util;
+package ru.home.convertermoney.repository;
 
 import ru.home.convertermoney.Settings;
 import ru.home.convertermoney.exceptions.ConverterException;
@@ -11,7 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class GetAllCurrencies {
+public class CurrenciesFiles {
+
+    public static final String UNABLE_TO_PARSE_FILE = "Unable to parse file";
 
     public static String[] getAllCurrenciesFromFile() {
 
@@ -25,7 +27,7 @@ public class GetAllCurrencies {
             return list.toArray(new String[0]);
 
         } catch (InvalidPathException | IOException e) {
-            throw new ConverterException(Settings.UNABLE_TO_PARSE_FILE + e);
+            throw new ConverterException(UNABLE_TO_PARSE_FILE + e);
         }
     }
 }
